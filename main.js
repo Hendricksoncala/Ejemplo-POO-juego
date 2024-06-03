@@ -1,23 +1,34 @@
-import { juego } from "./js/juego.js";
 import { heroe } from "./js/heroe.js";
+import { juego } from "./js/juego.js";
 
 const heroForm = document.getElementById("heroForm");
 const gameLog = document.getElementById("gameLog");
+
+let nombreheroe; // Declarar nombreheroe a nivel global
 
 heroForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const heroNameInput = document.getElementById("heroName");
-    const nombreheroe = heroNameInput.value;
+    nombreheroe = heroNameInput.value; // Asignar el valor a la variable global
 
     const miheroe = new heroe(nombreheroe, 100, 10, 20);
-    const mijuego = new uego(); // Mover aquí la creación del juego
-    mijuego.heroe = miheroe;       // y la asignación del héroe
+    const mijuego = new juego();
+    mijuego.heroe = miheroe;
 
     gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`;
     mijuego.iniciarJuego(gameLog);
 });
 
+document.addEventListener("DOMContentLoaded", () => { // Esperar a que el DOM cargue
+    // ... tu código anterior (crear héroe, juego, etc.)
+    const miHeroe = new heroe(nombreheroe, 100, 10, 20);
+    const miJuego = new juego();
+    miJuego.heroe = miHeroe;
+    gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`;
+
+    miJuego.iniciarJuego(gameLog);  // Inicia el juego después de que el DOM esté listo
+});
 // // Crea los monstruos usando los métodos estáticos con la posibilidad de cambiar sus valores 
 // const orco = monstruo.crearOrco();
 // // console.log(orco.getVida()); // Obtiene la vida del orco

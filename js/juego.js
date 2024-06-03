@@ -15,6 +15,7 @@ export class juego {
         const investigarBtn = document.getElementById("investigarBtn");
     
         atacarBtn.addEventListener("click", () => {
+            // console.log(this.heroe); 
             this.atacarMonstruo(this.heroe.getDano(), gameLog);
             if (this.monstruo && this.monstruo.getVida() > 0) {
                 this.atacarHeroe(this.monstruo.getDano(), gameLog);
@@ -32,7 +33,7 @@ export class juego {
     generarMonstruo(gameLog) { // Recibe gameLog como parámetro
         this.monstruo = this.generarMonstruoAleatorio();
         this.loguearAccion(`¡Un ${this.monstruo.nombre} ha aparecido!`, gameLog); // Pasa gameLog a loguearAccion
-    
+        console.log("Monstruo generado:", this.monstruo);
         // Habilitar botones después de un pequeño retraso
         setTimeout(() => {
             atacarBtn.disabled = false;

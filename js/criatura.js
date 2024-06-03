@@ -11,6 +11,10 @@ export class criatura {
     }
 
     // ... (Getters y Setters sin cambios)
+    getDano() {
+        return this.#dano;
+    }
+
 
     atacar(objetivo) {
         console.log(`${this.nombre} ataca a ${objetivo.nombre}`);

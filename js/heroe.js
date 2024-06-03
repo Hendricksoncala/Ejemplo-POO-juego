@@ -12,4 +12,5 @@ export class heroe extends criatura {
             this.setDefensa(120); // Usar el setter para modificar la defensa
         }
     }
+    
 }
