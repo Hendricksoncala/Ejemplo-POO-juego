@@ -1,24 +1,52 @@
 export class criatura {
-    #vida = 20
-    #defensa = 70
-    #dano = 5
-    constructor(){
-        this.undefined = 0
+    #vida;
+    #defensa;
+    #dano;
+
+    constructor(nombre, vida, defensa, dano = 5) { // Agrega el parámetro daño
+        this.nombre = nombre;
+        this.#vida = vida;
+        this.#defensa = defensa;
+        this.#dano = dano; // Inicializa el daño
     }
-    set setNombre(nom){
-        this.nombre = nom;
+
+    // Getters
+    getVida() {
+        return this.#vida;
     }
-    set setVida(puntos){
-        this.#vida += puntos;
+
+    getDefensa() {
+        return this.#defensa;
     }
-    // get getDefensa(){
-    //     return this.#defensa;
-    // }
+
+    getDano() {
+        return this.#dano;
+    }
+
+    // Setters
+    setVida(nuevaVida) {
+        this.#vida = nuevaVida;
+    }
+
+    setDefensa(nuevaDefensa) {
+        this.#defensa = nuevaDefensa;
+    }
+
+    setDaño(nuevoDaño) {
+        this.#dano = nuevoDaño;
+    }
+
 
     atacar(objetivo){
-        console.lig (`${this.nombre} ataca a $ ${objetivo.nombre}`);
+        console.log (`${this.nombre} ataca a $ ${objetivo.nombre}`);
         objetivo.recibir
-    }    
-
-    
+    }  
 }
+
+
+
+
+
+
+
+  
