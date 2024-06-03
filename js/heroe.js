@@ -1,13 +1,15 @@
 import { criatura } from "./criatura.js";
-export class heroe extends criatura{
+
+export class heroe extends criatura {
     #pechera = true;
-    constructor(nom){
-        super();
-        this.setNombre = nom;
-        this.setVida = 10;
-        this.getDefensa;
+
+    constructor(nombre, vida, defensa, dano = 5) {
+        super(nombre, vida, defensa, dano); // Pasar todos los argumentos al constructor padre
     }
-    armadura(){
-        if(this.#pechera) this.getDefensa = 120;
+
+    armadura() {
+        if (this.#pechera) {
+            this.setDefensa(120); // Usar el setter para modificar la defensa
+        }
     }
 }

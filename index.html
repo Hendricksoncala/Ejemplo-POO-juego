@@ -3,17 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>document</title>
+    <title>DeadConsole</title>
+
+    <style>
+        #gameLog {
+            white-space: pre-wrap; /* Permite saltos de línea en el texto */
+            font-family: monospace; /* Fuente de tipografía monoespaciada para simular consola */
+        }
+    </style>
 </head>
 <body>
-    <body>
-        <h1>Bienvenido a DeadConsole</h1>
-        <form id="heroForm"> <label for="heroName">Nombre del héroe:</label>
-            <input type="text" id="heroName" name="heroName"><br><br>
-            <button type="submit">Crear Héroe</button>
-        </form>
-        <script src="js/main.js" type="module"></script> 
-    </body>
-    </html>
+    <h1>Bienvenido a DeadConsole</h1>
+
+    <form id="heroForm">
+        <label for="heroName">Nombre del héroe:</label>
+        <input type="text" id="heroName" name="heroName"><br><br>
+        <button type="submit">Crear Héroe</button>
+    </form>
+
+    <div id="gameContainer">
+        <div id="gameLog"></div>
+        <button id="atacarBtn" disabled>Atacar</button>
+        <button id="investigarBtn" disabled>Investigar</button>
+    </div>
+
+    <script src="/main.js" type="module"></script>
 </body>
 </html>
