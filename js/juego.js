@@ -18,4 +18,18 @@ export class juego{
             this.loguearAccion(infoMonstruo)
         }
     }
+
+    atacarMonstruo(){
+        if(this.monstruo && this.mounstro.getVida() > 0) {
+            this.monstruo.setVida(this.monstruo.getVida() - dano);
+            this.loguearAccion(`Atacaste al mounstro! por ${dano} puntos de dano`);
+
+            if(this.mounstro.getVida() <= 0){
+                this.loguearAccion("Haz Derrotado al monstruo!!!");
+                this.monstruo = null //no deberia haber monstruo porque murio
+            }
+        }else {
+            this.loguearAccion("No hay mostruo activo o esta muerto. ")
+        }
+    }
 }
