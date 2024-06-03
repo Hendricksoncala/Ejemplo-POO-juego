@@ -2,7 +2,7 @@ import { juego } from "./js/juego.js";
 import { heroe } from "./js/heroe.js";
 
 const heroForm = document.getElementById("heroForm");
-const gameLog = document.getElementById("gameLog"); // Para mostrar el log del juego
+const gameLog = document.getElementById("gameLog");
 
 heroForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -11,11 +11,11 @@ heroForm.addEventListener("submit", (event) => {
     const nombreheroe = heroNameInput.value;
 
     const miheroe = new heroe(nombreheroe, 100, 10, 20);
-    const mijuego = new juego();
-    mijuego.heroe = miheroe;
+    const mijuego = new uego(); // Mover aquí la creación del juego
+    mijuego.heroe = miheroe;       // y la asignación del héroe
 
-    gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`; // Mostrar bienvenida en el div
-    mijuego.iniciarJuego(gameLog); // Pasar el elemento gameLog al método iniciarjuego
+    gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`;
+    mijuego.iniciarJuego(gameLog);
 });
 
 // // Crea los monstruos usando los métodos estáticos con la posibilidad de cambiar sus valores 
