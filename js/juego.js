@@ -4,6 +4,7 @@ export class juego{
     constructor(){
         this.historial = [];
         this.mounstro= null;
+        this.heroe = null;
 
     }
 
@@ -12,10 +13,12 @@ export class juego{
         console.log(accion);
     }
 
-    investigarMonstruo(){
-        if(this.monstruo && this.monstruo.getVida() > 0) {
-            const infoMonstruo = `Nombre: ${this.monstruo.nombre}, Vida: ${this.monstruo.getVida}, Defensa: ${this.monstruo.getDefensa}`
-            this.loguearAccion(infoMonstruo)
+    investigarMonstruo() {
+        if (this.monstruo && this.monstruo.getVida() > 0) {
+            const infoMonstruo = `Nombre: ${this.monstruo.nombre}, Vida: ${this.monstruo.getVida()}, Defensa: ${this.monstruo.getDefensa()}`;
+            this.loguearAccion(infoMonstruo);
+        } else {
+            this.loguearAccion("No hay monstruo activo o está muerto.");
         }
     }
 
@@ -32,4 +35,12 @@ export class juego{
             this.loguearAccion("No hay mostruo activo o esta muerto. ")
         }
     }
+
+    generarMonstruoAleatorio() {
+        const tiposMonstruo = [monstruo.crearOrco, monstruo.crearGoblin, monstruo.crearKobold];
+        const indiceAleatorio = Math.floor(Math.random() * tiposMonstruo.length);
+        return tiposMonstruo[indiceAleatorio]();
+    }
+
+
 }
