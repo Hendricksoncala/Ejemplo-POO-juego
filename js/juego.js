@@ -7,41 +7,49 @@ export class juego {
         this.historial = [];
         this.monstruo = null;
         this.heroe = null;
+        this.heroVidaSpan = document.getElementById("heroVida");
+        this.heroDañoSpan = document.getElementById("heroDaño");
+        this.monstruoVidaSpan = document.getElementById("monstruoVida");
     }
 
-    iniciarJuego(gameLog) { // Recibe gameLog como parámetro
-        this.generarMonstruo(gameLog); // Pasa gameLog a generarMonstruo
-    
+    iniciarJuego(gameLog) {
+        this.generarMonstruo(gameLog);
+
         const atacarBtn = document.getElementById("atacarBtn");
         const investigarBtn = document.getElementById("investigarBtn");
-    
+
         atacarBtn.addEventListener("click", () => {
-            this.atacarMonstruo(this.heroe.getDano(), gameLog);
-            if (this.monstruo && this.monstruo.getVida() > 0) {
-                this.atacarHeroe(this.monstruo.getDano(), gameLog);
-            } else {
-                this.generarMonstruo(gameLog); // Pasa gameLog a generarMonstruo
-            }
+            this.atacarMonstruo(gameLog);
         });
-    
+
         investigarBtn.addEventListener("click", () => {
             this.investigarMonstruo(gameLog);
         });
+
+        this.actualizarInterfaz(); 
     }
 
 
+    actualizarInterfaz() {
+        this.heroVidaSpan.textContent = this.heroe.getVida();
+        this.heroDañoSpan.textContent = this.heroe.getDano();
+        this.monstruoVidaSpan.textContent = this.monstruo ? this.monstruo.getVida() : 0; // Muestra 0 si no hay monstruo
+    }
 
-    generarMonstruo(gameLog) { // Recibe gameLog como parámetro
+
+    generarMonstruo(gameLog) {
         this.monstruo = this.generarMonstruoAleatorio();
-        this.loguearAccion(`¡Un ${this.monstruo.nombre} ha aparecido!`, gameLog); // Pasa gameLog a loguearAccion
-    
-        // Habilitar botones después de un pequeño retraso
-        setTimeout(() => {
-            atacarBtn.disabled = false;
-            investigarBtn.disabled = false;
-        }, 100); // Retraso de 100 milisegundos (ajusta según sea necesario)
+        this.loguearAccion(`¡Un ${this.monstruo.nombre} ha aparecido!`, gameLog);
+        
+        // Habilitar botones
+        atacarBtn.disabled = false;
+        investigarBtn.disabled = false;
+
+        this.actualizarInterfaz(); 
     }
 
+
+    
 
     generarMonstruoAleatorio() {
         const tiposMonstruo = [monstruo.crearOrco, monstruo.crearGoblin, monstruo.crearKobold];
@@ -56,36 +64,47 @@ export class juego {
         gameLog.innerHTML += `<p>${accion}</p>`;
     }
 
-    investigarMonstruo(gameLog) { // Recibe gameLog como parámetro
-        if (this.monstruo.getVida() > 0) {
+    investigarMonstruo(gameLog) {
+        if (this.monstruo) { // Simplificado: verifica si existe monstruo
             const infoMonstruo = `Nombre: ${this.monstruo.nombre}, Vida: ${this.monstruo.getVida()}, Defensa: ${this.monstruo.getDefensa()}`;
-            console.log(this.monstruo.getVida)
-            this.loguearAccion(infoMonstruo, gameLog); // Pasa gameLog a loguearAccion
+            this.loguearAccion(infoMonstruo, gameLog);
         } else {
-            this.loguearAccion("No hay monstruo activo o está muerto.", gameLog); // Pasa gameLog a loguearAccion
+            this.loguearAccion("No hay monstruo activo.", gameLog);
         }
+        
     }
 
 
 
-    atacarMonstruo(dano, gameLog) { // Recibe gameLog como parámetro
-        if (this.monstruo && this.monstruo.getVida() > 0) {
-            this.monstruo.setVida(this.monstruo.getVida() - dano());
-            this.loguearAccion(`Atacaste al monstruo por ${dano} puntos de dano.`, gameLog); // Pasa gameLog a loguearAccion
+    atacarMonstruo(gameLog) { // Eliminado el parámetro daño
+        if (this.monstruo) {
+            const dañoHeroe = this.heroe.getDano(); // Obtener daño del héroe
+            this.monstruo.setVida(this.monstruo.getVida() - dañoHeroe);
+            this.loguearAccion(`Atacaste al monstruo por ${dañoHeroe} puntos de daño.`, gameLog);
             if (this.monstruo.getVida() <= 0) {
-                this.loguearAccion("¡Has derrotado al monstruo!", gameLog); // Pasa gameLog a loguearAccion
+                this.loguearAccion("¡Has derrotado al monstruo!", gameLog);
                 this.monstruo = null;
+                // Deshabilitar botones después de derrotar al monstruo
+                document.getElementById("atacarBtn").disabled = true;
+                document.getElementById("investigarBtn").disabled = true;
             }
         } else {
-            this.loguearAccion("No hay monstruo activo o está muerto.", gameLog); // Pasa gameLog a loguearAccion
+            this.loguearAccion("No hay monstruo activo.", gameLog);
         }
+
+        this.actualizarInterfaz(); 
     }
 
-atacarHeroe(dano, gameLog) { // Recibe gameLog como parámetro
-    this.heroe.setVida(this.heroe.getVida() - dano);
-    this.loguearAccion(`El monstruo te atacó por ${dano} puntos de dano.`, gameLog); // Pasa gameLog a loguearAccion
-    if (this.heroe.getVida() <= 0) {
-        this.loguearAccion("¡Has sido derrotado!", gameLog); // Pasa gameLog a loguearAccion
+    atacarHeroe(dañoMonstruo, gameLog) { // Cambiado nombre de variable
+        this.heroe.setVida(this.heroe.getVida() - dañoMonstruo);
+        this.loguearAccion(`El monstruo te atacó por ${dañoMonstruo} puntos de daño.`, gameLog);
+        if (this.heroe.getVida() <= 0) {
+            this.loguearAccion("¡Has sido derrotado!", gameLog);
+            // Deshabilitar botones si el héroe es derrotado
+            document.getElementById("atacarBtn").disabled = true;
+            document.getElementById("investigarBtn").disabled = true;
+        }
+        this.actualizarInterfaz(); 
     }
-}
+     
 }
