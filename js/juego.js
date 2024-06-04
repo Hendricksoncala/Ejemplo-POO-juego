@@ -74,15 +74,21 @@ export class juego {
     }
 
 
-
     atacarMonstruo(gameLog) {
-        if (this.monstruo) { 
-            console.log(this.monstruo); // Agrega esta línea para depurar
+        if (this.monstruo) {
             const dañoHeroe = this.heroe.getDano();
-            this.monstruo.setVida(this.monstruo.getVida() - dañoHeroe); 
-            // ... (resto del método)
+            this.monstruo.recibirDaño(dañoHeroe); // Usa el método recibirDaño para actualizar la vida del monstruo
+            this.loguearAccion(`Atacaste al monstruo por ${dañoHeroe} puntos de daño. Vida restante del monstruo: ${this.monstruo.getVida()}`, gameLog);
+
+            if (this.monstruo.getVida() <= 0) {
+                this.loguearAccion("¡Has derrotado al monstruo!", gameLog);
+                this.monstruo = null;
+                document.getElementById("atacarBtn").disabled = true;
+                document.getElementById("investigarBtn").disabled = true;
+            }
+            this.actualizarInterfaz(); // Actualiza la interfaz para mostrar la nueva vida del monstruo
         } else {
-            // ...
+            this.loguearAccion("No hay monstruo activo.", gameLog);
         }
     }
 
