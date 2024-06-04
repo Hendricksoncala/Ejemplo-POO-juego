@@ -74,22 +74,26 @@ export class juego {
     }
 
 
-    atacarMonstruo(gameLog) {
-        if (this.monstruo) {
+    atacarMonstruo(gameLog) { 
+        if (this.monstruo) { 
             const dañoHeroe = this.heroe.getDano();
-            this.monstruo.recibirDaño(dañoHeroe); // Usa el método recibirDaño para actualizar la vida del monstruo
+            this.monstruo.recibirDaño(dañoHeroe); 
             this.loguearAccion(`Atacaste al monstruo por ${dañoHeroe} puntos de daño. Vida restante del monstruo: ${this.monstruo.getVida()}`, gameLog);
 
-            if (this.monstruo.getVida() <= 0) {
+            if (this.monstruo.getVida() <= 0) { // Verifica si el monstruo fue derrotado
                 this.loguearAccion("¡Has derrotado al monstruo!", gameLog);
                 this.monstruo = null;
+                // Deshabilitar botones de ataque e investigar
                 document.getElementById("atacarBtn").disabled = true;
                 document.getElementById("investigarBtn").disabled = true;
+
+                // Habilitar botón de reiniciar
+                document.getElementById("reiniciarBtn").disabled = false; 
             }
-            this.actualizarInterfaz(); // Actualiza la interfaz para mostrar la nueva vida del monstruo
         } else {
             this.loguearAccion("No hay monstruo activo.", gameLog);
         }
+        this.actualizarInterfaz();
     }
 
     atacarHeroe(dañoMonstruo, gameLog) { // Cambiado nombre de variable
@@ -106,22 +110,12 @@ export class juego {
 
     /*NUEVA MODALIDAD PARA REINICIAR EL JUEGO CUANDO TERMINA*/
     reiniciarJuego(gameLog) {
-        this.historial = []; 
-        this.monstruo = null; 
-        this.heroe.setVida(100); 
-
-        // Deshabilitar botones de ataque e investigar
-        document.getElementById("atacarBtn").disabled = true;
-        document.getElementById("investigarBtn").disabled = true;
-        
-        // Habilitar el botón de reiniciar
-        document.getElementById("reiniciarBtn").disabled = true;
-
-        // Limpiar el gameLog
-        gameLog.innerHTML = "";
-        
-        // Puedes generar un nuevo monstruo aquí si quieres
-        // this.generarMonstruo(gameLog);
+        this.historial = [];
+        this.monstruo = null;
+        this.heroe.setVida(100); // Restablecer la vida del héroe al valor inicial (usando el método de criatura)
+    
+        gameLog.innerHTML = ""; 
+        this.generarMonstruo(gameLog);
     }
      
 }

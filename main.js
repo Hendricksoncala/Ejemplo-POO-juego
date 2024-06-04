@@ -1,4 +1,3 @@
-
 import { heroe } from "./js/heroe.js";
 import { juego } from "./js/juego.js";
 
@@ -9,7 +8,7 @@ const investigarBtn = document.getElementById("investigarBtn");
 const reiniciarBtn = document.getElementById("reiniciarBtn");
 
 let nombreheroe;
-let mijuego = null; // Declarar mijuego como null al inicio
+let miJuego; // Declaramos miJuego a nivel global
 
 heroForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -22,24 +21,24 @@ heroForm.addEventListener("submit", (event) => {
         return;
     }
 
-    const miheroe = new heroe(nombreheroe, 100, 10, 20);
-    mijuego = new juego(); // Crear la instancia de Juego
-    mijuego.heroe = miheroe;
-
-    gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`;
-    mijuego.iniciarJuego(gameLog);
-
+    reiniciarJuego(); // Llama a la función para reiniciar el juego
     heroForm.style.display = "none";
     atacarBtn.disabled = false;
     investigarBtn.disabled = false;
 });
 
 reiniciarBtn.addEventListener("click", () => {
-    if (mijuego) { // Verificar si mijuego está definido
-        mijuego.reiniciarJuego(gameLog);
-        heroForm.style.display = "block";
-        atacarBtn.disabled = true;
-        investigarBtn.disabled = true;
-        reiniciarBtn.disabled = true;
-    }
+    reiniciarJuego(); // Llama a la función para reiniciar el juego
+    heroForm.style.display = "block";
+    atacarBtn.disabled = true;
+    investigarBtn.disabled = true;
+    reiniciarBtn.disabled = true;
 });
+
+function reiniciarJuego() {
+    const miheroe = new heroe(nombreheroe, 100, 10, 20);
+    miJuego = new juego(); 
+    miJuego.heroe = miheroe;
+    gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`;
+    miJuego.iniciarJuego(gameLog);
+}
