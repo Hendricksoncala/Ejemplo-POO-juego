@@ -103,5 +103,25 @@ export class juego {
         }
         this.actualizarInterfaz(); 
     }
+
+    /*NUEVA MODALIDAD PARA REINICIAR EL JUEGO CUANDO TERMINA*/
+    reiniciarJuego(gameLog) {
+        this.historial = []; 
+        this.monstruo = null; 
+        this.heroe.setVida(100); 
+
+        // Deshabilitar botones de ataque e investigar
+        document.getElementById("atacarBtn").disabled = true;
+        document.getElementById("investigarBtn").disabled = true;
+        
+        // Habilitar el botón de reiniciar
+        document.getElementById("reiniciarBtn").disabled = true;
+
+        // Limpiar el gameLog
+        gameLog.innerHTML = "";
+        
+        // Puedes generar un nuevo monstruo aquí si quieres
+        // this.generarMonstruo(gameLog);
+    }
      
 }
