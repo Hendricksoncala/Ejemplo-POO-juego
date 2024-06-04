@@ -7,42 +7,38 @@ export class criatura {
         this.nombre = nombre;
         this.#vida = vida;
         this.#defensa = defensa;
-        this.dano = dano; 
+        this.#dano = dano; 
     }
 
-    // ... (Getters y Setters sin cambios)
+    getVida() {
+        return this.#vida;
+    }
+
+    getDefensa() {
+        return this.#defensa;
+    }
+
     getDano() {
         return this.#dano;
     }
-
-    getVida(){
-        this.#vida = this.#vida - this.#dano;
-        return this.#vida;
-    }
-    getDefensa(){
-        return this.#defensa
+   
+    setDefensa(nuevaDefensa) {
+        this.#defensa = nuevaDefensa;
     }
 
-    setVida(){
-        return this.#vida;
+    setDaño(nuevoDaño) {
+        this.#dano = nuevoDaño;
     }
-    atacar(objetivo) {
-        console.log(`${this.nombre} ataca a ${objetivo.nombre}`);
+
+
+    atacar(objetivo){
+        console.log (`${this.nombre} ataca a $ ${objetivo.nombre}`);
         objetivo.recibirDaño(this.#dano); // Llama al método recibirDaño del objetivo
-    }
+    }  
 
     recibirDaño(daño) {
-        const dañoRecibido = Math.max(0, daño - this.#defensa); // Calcula el daño real
+        const dañoRecibido = Math.max(0, daño - this.#defensa);
         this.#vida -= dañoRecibido;
         console.log(`${this.nombre} recibe ${dañoRecibido} puntos de daño. Vida restante: ${this.#vida}`);
     }
-
-
-
-
 }
-export function dano(){
-    return new this.dano;
-}
-
-

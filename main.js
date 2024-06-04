@@ -10,24 +10,20 @@ heroForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const heroNameInput = document.getElementById("heroName");
-    nombreheroe = heroNameInput.value; // Asignar el valor a la variable global
+    nombreheroe = heroNameInput.value;
+
+    // Validar que se haya ingresado un nombre
+    if (nombreheroe.trim() === "") {
+        alert("Por favor, ingresa un nombre para tu héroe.");
+        return; // Detener la ejecución si no hay nombre
+    }
 
     const miheroe = new heroe(nombreheroe, 100, 10, 20);
     const mijuego = new juego();
     mijuego.heroe = miheroe;
 
-    gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`;
+    gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`; // Mostrar bienvenida aquí
     mijuego.iniciarJuego(gameLog);
-});
-
-document.addEventListener("DOMContentLoaded", () => { // Esperar a que el DOM cargue
-    // ... tu código anterior (crear héroe, juego, etc.)
-    const miHeroe = new heroe(nombreheroe, 100, 10, 20);
-    const miJuego = new juego();
-    miJuego.heroe = miHeroe;
-    gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`;
-
-    miJuego.iniciarJuego(gameLog);  // Inicia el juego después de que el DOM esté listo
 });
 // // Crea los monstruos usando los métodos estáticos con la posibilidad de cambiar sus valores 
 // const orco = monstruo.crearOrco();

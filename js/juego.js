@@ -1,6 +1,5 @@
 import { criatura } from "./criatura.js";
 import { monstruo } from "./monstruo.js";
-import { dano } from "./criatura.js"
 
 export class juego {
     constructor() {
@@ -76,23 +75,15 @@ export class juego {
 
 
 
-    atacarMonstruo(gameLog) { // Eliminado el parámetro daño
-        if (this.monstruo) {
-            const dañoHeroe = this.heroe.getDano(); // Obtener daño del héroe
-            this.monstruo.setVida(this.monstruo.getVida() - dañoHeroe);
-            this.loguearAccion(`Atacaste al monstruo por ${dañoHeroe} puntos de daño.`, gameLog);
-            if (this.monstruo.getVida() <= 0) {
-                this.loguearAccion("¡Has derrotado al monstruo!", gameLog);
-                this.monstruo = null;
-                // Deshabilitar botones después de derrotar al monstruo
-                document.getElementById("atacarBtn").disabled = true;
-                document.getElementById("investigarBtn").disabled = true;
-            }
+    atacarMonstruo(gameLog) {
+        if (this.monstruo) { 
+            console.log(this.monstruo); // Agrega esta línea para depurar
+            const dañoHeroe = this.heroe.getDano();
+            this.monstruo.setVida(this.monstruo.getVida() - dañoHeroe); 
+            // ... (resto del método)
         } else {
-            this.loguearAccion("No hay monstruo activo.", gameLog);
+            // ...
         }
-
-        this.actualizarInterfaz(); 
     }
 
     atacarHeroe(dañoMonstruo, gameLog) { // Cambiado nombre de variable
