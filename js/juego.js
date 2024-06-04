@@ -112,7 +112,7 @@ export class juego {
     reiniciarJuego(gameLog) {
         this.historial = [];
         this.monstruo = null;
-        this.heroe.setVida(100); // Restablecer la vida del héroe al valor inicial (usando el método de criatura)
+        
     
         gameLog.innerHTML = ""; 
         this.generarMonstruo(gameLog);

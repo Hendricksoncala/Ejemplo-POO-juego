@@ -8,7 +8,8 @@ const investigarBtn = document.getElementById("investigarBtn");
 const reiniciarBtn = document.getElementById("reiniciarBtn");
 
 let nombreheroe;
-let miJuego; // Declaramos miJuego a nivel global
+let mijuego = new juego(); // Crear la instancia de Juego al principio
+let miheroe;
 
 heroForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -21,7 +22,12 @@ heroForm.addEventListener("submit", (event) => {
         return;
     }
 
-    reiniciarJuego(); // Llama a la función para reiniciar el juego
+    miheroe = new heroe(nombreheroe, 100, 10, 20);
+    mijuego.heroe = miheroe; 
+
+    gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`;
+    mijuego.iniciarJuego(gameLog);
+
     heroForm.style.display = "none";
     atacarBtn.disabled = false;
     investigarBtn.disabled = false;
@@ -35,10 +41,7 @@ reiniciarBtn.addEventListener("click", () => {
     reiniciarBtn.disabled = true;
 });
 
+
 function reiniciarJuego() {
-    const miheroe = new heroe(nombreheroe, 100, 10, 20);
-    miJuego = new juego(); 
-    miJuego.heroe = miheroe;
-    gameLog.innerHTML = `¡Bienvenido, ${nombreheroe}!`;
-    miJuego.iniciarJuego(gameLog);
+    mijuego.reiniciarJuego(gameLog);
 }
