@@ -12,21 +12,25 @@ export class juego {
     }
 
     iniciarJuego(gameLog) {
-        this.generarMonstruo(gameLog);
-
         const atacarBtn = document.getElementById("atacarBtn");
         const investigarBtn = document.getElementById("investigarBtn");
 
+        this.generarMonstruo(gameLog);
+
         atacarBtn.addEventListener("click", () => {
             this.atacarMonstruo(gameLog);
+            if (this.monstruo && this.monstruo.getVida() > 0) {
+                this.atacarHeroe(this.monstruo.getDano(), gameLog);
+            } else {
+                this.generarMonstruo(gameLog);
+            }
         });
 
         investigarBtn.addEventListener("click", () => {
             this.investigarMonstruo(gameLog);
         });
-
-        this.actualizarInterfaz(); 
     }
+
 
 
     actualizarInterfaz() {

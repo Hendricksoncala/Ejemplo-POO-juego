@@ -10,8 +10,9 @@ export class criatura {
         this.#dano = dano; 
     }
 
+    // Getters
     getVida() {
-        return this.#vida;
+        return this.#vida; 
     }
 
     getDefensa() {
@@ -21,7 +22,12 @@ export class criatura {
     getDano() {
         return this.#dano;
     }
-   
+
+    // Setters
+    setVida(nuevaVida) {
+        this.#vida = nuevaVida;
+    }
+
     setDefensa(nuevaDefensa) {
         this.#defensa = nuevaDefensa;
     }
@@ -30,10 +36,9 @@ export class criatura {
         this.#dano = nuevoDaño;
     }
 
-
     atacar(objetivo){
         console.log (`${this.nombre} ataca a $ ${objetivo.nombre}`);
-        objetivo.recibirDaño(this.#dano); // Llama al método recibirDaño del objetivo
+        objetivo.recibirDaño(this.#dano);
     }  
 
     recibirDaño(daño) {
