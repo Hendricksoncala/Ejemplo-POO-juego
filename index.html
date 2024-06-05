@@ -4,34 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeadConsole</title>
-
-    <style>
-        #gameLog {
-            white-space: pre-wrap; /* Permite saltos de línea en el texto */
-            font-family: monospace; /* Fuente de tipografía monoespaciada para simular consola */
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css"> 
 </head>
 <body>
-    <h1>Bienvenido a DeadConsole</h1>
 
-    <form id="heroForm">
-        <label for="heroName">Nombre del héroe:</label>
-        <input type="text" id="heroName" name="heroName"><br><br>
-        <button type="submit">Crear Héroe</button>
-    </form>
-
-    <div id="gameContainer">
-        <div id="gameLog"></div>
-        <div>
+    <div id="game-container">
+        <div id="info-box">
+            <h2>DeadConsole</h2> 
             <p>Vida del Héroe: <span id="heroVida">100</span></p> 
             <p>Daño del Héroe: <span id="heroDaño">20</span></p>
             <p>Vida del Monstruo: <span id="monstruoVida"></span></p>
+            <div id="gameLog"></div> 
         </div>
-        <button id="atacarBtn" disabled>Atacar</button>
-        <button id="investigarBtn" disabled>Investigar</button>
-        <button id="reiniciarBtn" disabled>Reiniciar</button> <script src="/main.js" type="module"></script>
-        <button id="inventarioBtn" disabled>Inventario</button>
+
+        <div id="buttons"> 
+            <form id="heroForm">
+                <label for="heroName">Nombre del héroe:</label>
+                <input type="text" id="heroName" name="heroName"><br><br>
+                <button type="submit">Crear Héroe</button>
+            </form>
+            <button id="atacarBtn" disabled>Atacar</button>
+            <button id="investigarBtn" disabled>Investigar</button>
+            <button id="inventarioBtn" disabled>Inventario</button>
+            <button id="reiniciarBtn" disabled>Reiniciar</button> 
+        </div>
     </div>
 
     <script src="/main.js" type="module"></script>
