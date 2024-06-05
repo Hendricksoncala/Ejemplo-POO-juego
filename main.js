@@ -1,6 +1,6 @@
 import { heroe } from "./js/heroe.js";
 import { juego } from "./js/juego.js";
-import { Item } from "./js/item.js"; // Importa la clase Item
+import { Item } from "./js/item.js"; 
 
 const heroForm = document.getElementById("heroForm");
 const gameLog = document.getElementById("gameLog");
@@ -28,8 +28,8 @@ heroForm.addEventListener("submit", (event) => {
     mijuego.heroe = miheroe;
 
     // Crear y agregar items al héroe (mover aquí)
-    const espada = new Item("Espada afilada", "arma", { daño: 10 });
-    const pocion = new Item("Poción de vida", "pocion", { vida: 25 });
+    const espada = new Item("Espada afilada", "arma", 10); 
+    const pocion = new Item("Poción de vida", "pocion", 25); 
     miheroe.agregarItem(espada);
     miheroe.agregarItem(pocion);
 

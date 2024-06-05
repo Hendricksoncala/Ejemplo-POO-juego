@@ -6,7 +6,8 @@ export class heroe extends criatura {
     
     constructor(nombre, vida, defensa, dano = 5) {
         super(nombre, vida, defensa, dano);
-        this.inventario = []; // Array para almacenar los items
+        this.inventario = []; 
+        this.dañoAdicionalTemporal = 0; // Nueva propiedad
     }
 
     agregarItem(item) {
@@ -22,14 +23,14 @@ export class heroe extends criatura {
         }
 
         if (item.tipo === "arma") {
-            this.setDano(this.getDano() + item.efecto.dano);
+            this.dañoAdicionalTemporal = item.efecto.dano;
             gameLog.innerHTML += `<p>Usaste ${item.nombre} y tu daño aumentó en ${item.efecto.dano}.</p>`;
         } else if (item.tipo === "pocion") {
             this.setVida(this.getVida() + item.efecto.vida);
             gameLog.innerHTML += `<p>Usaste ${item.nombre} y recuperaste ${item.efecto.vida} puntos de vida.</p>`;
         }
 
-        this.inventario.splice(indiceItem, 1); // Elimina el item del inventario
+        this.inventario.splice(indiceItem, 1);
         gameLog.innerHTML += `<p>Eliminaste ${item.nombre} de tu inventario.</p>`;
     }
 
@@ -63,13 +64,17 @@ export class heroe extends criatura {
                 event.preventDefault();
                 const indiceItem = parseInt(itemInput.value, 10) - 1;
                 this.usarItem(indiceItem, gameLog);
-                usarItemForm.remove(); // Elimina el formulario después de usar el item
+                usarItemForm.remove();
             });
         }}
 
+    getDano() {
+        return this.daño + this.dañoAdicionalTemporal; 
+    }
+
     armadura() {
         if (this.#pechera) {
-            this.setDefensa(120); // Usar el setter para modificar la defensa
+            this.setDefensa(120); 
         }
     }
 }
