@@ -36,6 +36,24 @@ export class juego {
         });
     }
 
+    mostrarInventario(gameLog) {
+        this.heroe.mostrarInventario(gameLog);
+
+        // Crear botones para usar cada item
+        const inventarioDiv = document.createElement("div");
+        this.heroe.inventario.forEach((item, index) => {
+            const usarBtn = document.createElement("button");
+            usarBtn.textContent = `Usar ${item.nombre}`;
+            usarBtn.addEventListener("click", () => {
+                this.heroe.usarItem(index, gameLog);
+                this.actualizarInterfaz();
+                inventarioDiv.remove(); // Eliminar los botones después de usar un item
+            });
+            inventarioDiv.appendChild(usarBtn);
+        });
+        gameLog.appendChild(inventarioDiv);
+    }
+
 
 
     actualizarInterfaz() {
