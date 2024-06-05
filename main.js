@@ -1,6 +1,6 @@
 import { heroe } from "./js/heroe.js";
 import { juego } from "./js/juego.js";
-
+import { Item } from "./js/item.js"; // Importa la clase Item
 
 const heroForm = document.getElementById("heroForm");
 const gameLog = document.getElementById("gameLog");
@@ -10,7 +10,7 @@ const reiniciarBtn = document.getElementById("reiniciarBtn");
 const inventarioBtn = document.getElementById("inventarioBtn");
 
 let nombreheroe;
-let mijuego = new juego();
+let mijuego;
 
 heroForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -24,10 +24,11 @@ heroForm.addEventListener("submit", (event) => {
     }
 
     const miheroe = new heroe(nombreheroe, 100, 10, 20);
+    mijuego = new juego();
     mijuego.heroe = miheroe;
 
-    // Crear y agregar items al héroe
-    const espada = new Item("Espada afilada", "arma", { dano: 10 });
+    // Crear y agregar items al héroe (mover aquí)
+    const espada = new Item("Espada afilada", "arma", { daño: 10 });
     const pocion = new Item("Poción de vida", "pocion", { vida: 25 });
     miheroe.agregarItem(espada);
     miheroe.agregarItem(pocion);
@@ -38,7 +39,7 @@ heroForm.addEventListener("submit", (event) => {
     heroForm.style.display = "none";
     atacarBtn.disabled = false;
     investigarBtn.disabled = false;
-    inventarioBtn.disabled = false;
+    inventarioBtn.disabled = false; 
 });
 
 reiniciarBtn.addEventListener("click", () => {
@@ -47,5 +48,5 @@ reiniciarBtn.addEventListener("click", () => {
     atacarBtn.disabled = true;
     investigarBtn.disabled = true;
     reiniciarBtn.disabled = true;
-    inventarioBtn.disabled = true;
+    inventarioBtn.disabled = true; 
 });
