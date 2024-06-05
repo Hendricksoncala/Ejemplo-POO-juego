@@ -4,10 +4,10 @@ import { Item } from "./item.js";
 export class heroe extends criatura {
     #pechera = true;
     
-    constructor(nombre, vida, defensa, dano = 5) {
+    constructor(nombre, vida, defensa, dano = 20) { // Asegúrate de que el valor por defecto sea un número
         super(nombre, vida, defensa, dano);
-        this.inventario = []; 
-        this.dañoAdicionalTemporal = 0; // Nueva propiedad
+        this.inventario = [];
+        this.dañoAdicionalTemporal = 0;
     }
 
     agregarItem(item) {
@@ -23,16 +23,17 @@ export class heroe extends criatura {
         }
 
         if (item.tipo === "arma") {
-            this.dañoAdicionalTemporal = item.efecto.dano;
-            gameLog.innerHTML += `<p>Usaste ${item.nombre} y tu daño aumentó en ${item.efecto.dano}.</p>`;
+            this.dañoAdicionalTemporal = item.efecto; // Corrección aquí: item.efecto en lugar de item.efecto.dano
+            gameLog.innerHTML += `<p>Usaste ${item.nombre} y tu daño aumentó en ${item.efecto}.</p>`;
         } else if (item.tipo === "pocion") {
-            this.setVida(this.getVida() + item.efecto.vida);
-            gameLog.innerHTML += `<p>Usaste ${item.nombre} y recuperaste ${item.efecto.vida} puntos de vida.</p>`;
+            this.setVida(this.getVida() + item.efecto);
+            gameLog.innerHTML += `<p>Usaste ${item.nombre} y recuperaste ${item.efecto} puntos de vida.</p>`;
         }
 
         this.inventario.splice(indiceItem, 1);
         gameLog.innerHTML += `<p>Eliminaste ${item.nombre} de tu inventario.</p>`;
     }
+
 
     mostrarInventario(gameLog) {
         if (this.inventario.length === 0) {
@@ -68,9 +69,10 @@ export class heroe extends criatura {
             });
         }}
 
-    getDano() {
-        return this.daño + this.dañoAdicionalTemporal; 
-    }
+        getDano() {
+            const dañoBase = this.daño || 20; // Asegura que dañoBase sea un número, incluso si this.daño es undefined
+            return dañoBase + this.dañoAdicionalTemporal;
+        }
 
     armadura() {
         if (this.#pechera) {

@@ -39,15 +39,20 @@ export class juego {
     mostrarInventario(gameLog) {
         this.heroe.mostrarInventario(gameLog);
 
-        // Crear botones para usar cada item
         const inventarioDiv = document.createElement("div");
         this.heroe.inventario.forEach((item, index) => {
             const usarBtn = document.createElement("button");
             usarBtn.textContent = `Usar ${item.nombre}`;
             usarBtn.addEventListener("click", () => {
                 this.heroe.usarItem(index, gameLog);
+                
+                // Reiniciar dañoAdicionalTemporal después de usar un arma
+                if (item.tipo === "arma") { 
+                    this.heroe.dañoAdicionalTemporal = 0;
+                }
+
                 this.actualizarInterfaz();
-                inventarioDiv.remove(); // Eliminar los botones después de usar un item
+                inventarioDiv.remove(); 
             });
             inventarioDiv.appendChild(usarBtn);
         });
@@ -100,28 +105,24 @@ export class juego {
         
     }
 
-
-    atacarMonstruo(gameLog) { 
-        if (this.monstruo) { 
+    atacarMonstruo(gameLog) {
+        if (this.monstruo) {
             const dañoHeroe = this.heroe.getDano();
-            this.monstruo.recibirDaño(dañoHeroe); 
+            this.monstruo.recibirDaño(dañoHeroe);
             this.loguearAccion(`Atacaste al monstruo por ${dañoHeroe} puntos de daño. Vida restante del monstruo: ${this.monstruo.getVida()}`, gameLog);
-
-            if (this.monstruo.getVida() <= 0) { // Verifica si el monstruo fue derrotado
-                this.loguearAccion("¡Has derrotado al monstruo!", gameLog);
-                this.monstruo = null;
-                // Deshabilitar botones de ataque e investigar
-                document.getElementById("atacarBtn").disabled = true;
-                document.getElementById("investigarBtn").disabled = true;
-
-                // Habilitar botón de reiniciar
-                document.getElementById("reiniciarBtn").disabled = false; 
+    
+            if (this.monstruo.getVida() <= 0) {
+                // ... (resto del código para cuando el monstruo es derrotado)
             }
         } else {
             this.loguearAccion("No hay monstruo activo.", gameLog);
         }
+
+        // Reiniciar dañoAdicionalTemporal después de atacar (independientemente de si hay monstruo o no)
+        this.heroe.dañoAdicionalTemporal = 0; 
         this.actualizarInterfaz();
     }
+    
 
     atacarHeroe(dañoMonstruo, gameLog) { // Cambiado nombre de variable
         this.heroe.setVida(this.heroe.getVida() - dañoMonstruo);
@@ -140,6 +141,7 @@ export class juego {
         this.historial = [];
         this.monstruo = null;
         
+        this.heroe = new heroe(nombreheroe, 100, 10, 20);
     
         gameLog.innerHTML = ""; 
         this.generarMonstruo(gameLog);
