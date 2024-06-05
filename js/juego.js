@@ -12,10 +12,11 @@ export class juego {
     }
 
     iniciarJuego(gameLog) {
+        this.generarMonstruo(gameLog);
+
         const atacarBtn = document.getElementById("atacarBtn");
         const investigarBtn = document.getElementById("investigarBtn");
-
-        this.generarMonstruo(gameLog);
+        const inventarioBtn = document.getElementById("inventarioBtn"); // Obtén el botón de inventario
 
         atacarBtn.addEventListener("click", () => {
             this.atacarMonstruo(gameLog);
@@ -28,6 +29,10 @@ export class juego {
 
         investigarBtn.addEventListener("click", () => {
             this.investigarMonstruo(gameLog);
+        });
+
+        inventarioBtn.addEventListener("click", () => { // Event listener para el botón de inventario
+            this.heroe.mostrarInventario(gameLog);
         });
     }
 
